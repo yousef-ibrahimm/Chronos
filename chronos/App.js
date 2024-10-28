@@ -15,10 +15,10 @@ export default function App() {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="MainScreens" component={MainScreens} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Deadlines" component={DeadlinesScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,10 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Chip } from "@rneui/themed";
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
+  function navigateToHome() {
+    navigation.navigate("MainScreens");
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Sign In</Text>
+      <Chip title={"Sign in"} onPress={navigateToHome} />
     </View>
   );
 };
