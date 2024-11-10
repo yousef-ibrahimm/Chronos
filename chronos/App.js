@@ -5,22 +5,25 @@ import MainScreens from "./screens/MainScreens";
 import HomeScreen from "./screens/HomeScreen";
 import DeadlinesScreen from "./screens/DeadlinesScreen";
 import SignInScreen from "./screens/SignInScreen";
+import StudentContextProvider from "./store/context/student-context";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="MainScreens" component={MainScreens} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Deadlines" component={DeadlinesScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <StudentContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="MainScreens" component={MainScreens} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Deadlines" component={DeadlinesScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </StudentContextProvider>
   );
 }
 
