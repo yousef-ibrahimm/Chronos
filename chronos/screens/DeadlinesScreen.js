@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { StudentContext } from "../store/context/student-context";
 import { useContext, useEffect, useState } from "react";
 import Papa from "papaparse";
+import GeneralWrapper from "../components/UI/GeneralWrapper";
 
 const DeadlinesScreen = () => {
   const studentCtxt = useContext(StudentContext);
@@ -49,12 +50,17 @@ const DeadlinesScreen = () => {
     return moduleDeadlines;
   }
 
+  const renderDeadlines = (module) => {
+    return <GeneralWrapper moduleData={module} />;
+  };
   return (
     <View style={styles.container}>
       {courseDeadlines.length > 0 ? (
-        <Text style={styles.text}>
-          Module Code: {courseDeadlines[0]["Module Code"]}
-        </Text>
+        <FlatList
+          data={studentCtxt.courseDeadlines}
+          renderItem={renderDeadlines}
+          keyExtractor={() => Math.random * 1000}
+        />
       ) : (
         <Text style={styles.text}>Loading deadlines...</Text>
       )}
