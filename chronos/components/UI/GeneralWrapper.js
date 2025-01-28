@@ -1,16 +1,19 @@
 import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 
 export default function GeneralWrapper({ moduleData }) {
-  // console.log(moduleData.item);
   const renderModuleData = (module) => {
-    console.log(parseInt(module.item["Weight"]));
     return (
-      <View>
-        <Text>Assessment: {parseInt(module.index) + 1}</Text>
-        <Text>Method of Assessment: {module.item["Method of Assessment"]}</Text>
-        <Text>Deadline: {module.item["Assessment Date"]}</Text>
-        <Text>Worth: {module.item["Weight"]}</Text>
-        <Text>-----------------------------------------------</Text>
+      <View style={styles.innerContainer}>
+        <Text style={styles.innerTxt}>
+          Assessment: {parseInt(module.index) + 1}
+        </Text>
+        <Text style={styles.innerTxt}>
+          Method of Assessment: {module.item["Method of Assessment"]}
+        </Text>
+        <Text style={styles.innerTxt}>
+          Deadline: {module.item["Assessment Date"]}
+        </Text>
+        <Text style={styles.innerTxt}>Worth: {module.item["Weight"]}</Text>
       </View>
     );
   };
@@ -32,12 +35,26 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     marginVertical: 4,
     marginHorizontal: 12,
-    backgroundColor: "yellow",
+    backgroundColor: "purple",
+  },
+  innerContainer: {
+    borderRadius: 20,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    marginVertical: 4,
+    marginHorizontal: 12,
+    backgroundColor: "black",
   },
   txt: {
     fontSize: 35,
-    textAlign: "right",
+    textAlign: "left",
     verticalAlign: "middle",
-    color: "black",
+    color: "white",
+    fontWeight: "bold",
+  },
+  innerTxt: {
+    fontSize: 20,
+    verticalAlign: "middle",
+    color: "white",
   },
 });
