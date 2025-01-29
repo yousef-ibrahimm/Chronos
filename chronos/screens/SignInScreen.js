@@ -7,7 +7,7 @@ import { StudentContext } from "../store/context/student-context";
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   function navigateToHome() {
-    navigation.navigate("MainScreens");
+    navigation.navigate("Loading");
   }
   const setId = (id) => {
     studentCtxt.setId(id);
