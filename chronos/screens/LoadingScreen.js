@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { StudentContext } from "../store/context/student-context";
 import { callStudentsApi } from "../utils/studentsApi";
 
@@ -30,7 +30,7 @@ const LoadingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#0000ff" />
+      <Text>Fetching Student Data...</Text>
     </View>
   );
 };

@@ -1,28 +1,41 @@
-import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 export default function GeneralWrapper({ moduleData }) {
-  const renderModuleData = (module) => {
-    return (
-      <View style={styles.innerContainer}>
-        <Text style={styles.innerTxt}>
-          Assessment: {parseInt(module.index) + 1}
-        </Text>
-        <Text style={styles.innerTxt}>
-          Method of Assessment: {module.item["Method of Assessment"]}
-        </Text>
-        <Text style={styles.innerTxt}>
-          Deadline: {module.item["Assessment Date"]}
-        </Text>
-        <Text style={styles.innerTxt}>Worth: {module.item["Weight"]}</Text>
-      </View>
-    );
-  };
+  const item = moduleData.item;
+
+  // Define the specific properties to display
+  const allowedKeys = [
+    "Assessment Date",
+    "Method of Assessment",
+    "Weight",
+    "Credits",
+    "Length",
+    "Module Coordinator",
+  ];
+
+  // Filter only the allowed keys
+  const filteredDetails = allowedKeys.map((key) => ({
+    key,
+    value: item[key],
+  }));
+
+  const renderModuleData = ({ item }) => (
+    <View>
+      <Text style={styles.innerTxt}>
+        <Text style={styles.bold}>{item.key}:</Text> {item.value}
+      </Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.txt}>{moduleData.item[0]["Module Name"]}</Text>
-        <FlatList data={moduleData.item} renderItem={renderModuleData} />
+      <Text style={styles.txt}>{item["Module Name"]}</Text>
+      <View style={styles.innerContainer}>
+        <FlatList
+          data={filteredDetails}
+          renderItem={renderModuleData}
+          keyExtractor={(item) => item.key}
+        />
       </View>
     </View>
   );
@@ -48,13 +61,15 @@ const styles = StyleSheet.create({
   txt: {
     fontSize: 35,
     textAlign: "left",
-    verticalAlign: "middle",
     color: "white",
     fontWeight: "bold",
+    marginBottom: 8,
   },
   innerTxt: {
     fontSize: 20,
-    verticalAlign: "middle",
     color: "white",
+  },
+  bold: {
+    fontWeight: "bold",
   },
 });

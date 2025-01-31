@@ -15,7 +15,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput onChangeText={(e) => setId(e)} />
+      <TextInput onChangeText={(e) => setId(e)} style={styles.input} />
       <Chip title={"Sign in"} onPress={navigateToHome} />
     </View>
   );
@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  input: {
+    width: "80%",
+    marginVertical: 10,
   },
 });
 
