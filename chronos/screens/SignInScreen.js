@@ -7,7 +7,7 @@ import { StudentContext } from "../store/context/student-context";
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   function navigateToHome() {
-    navigation.navigate("MainScreens");
+    navigation.navigate("Loading");
   }
   const setId = (id) => {
     studentCtxt.setId(id);
@@ -15,7 +15,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput onChangeText={(e) => setId(e)} />
+      <TextInput onChangeText={(e) => setId(e)} style={styles.input} />
       <Chip title={"Sign in"} onPress={navigateToHome} />
     </View>
   );
@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  input: {
+    width: "80%",
+    marginVertical: 10,
   },
 });
 
