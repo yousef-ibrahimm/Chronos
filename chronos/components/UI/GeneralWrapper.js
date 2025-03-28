@@ -1,42 +1,14 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
 
-export default function GeneralWrapper({ moduleData }) {
+export default function GeneralWrapper({ moduleData, onPress }) {
   const item = moduleData.item;
-
-  // Define the specific properties to display
-  const allowedKeys = [
-    "Assessment Date",
-    "Method of Assessment",
-    "Weight",
-    "Credits",
-    "Length",
-    "Module Coordinator",
-  ];
-
-  // Filter only the allowed keys
-  const filteredDetails = allowedKeys.map((key) => ({
-    key,
-    value: item[key],
-  }));
-
-  const renderModuleData = ({ item }) => (
-    <View>
-      <Text style={styles.innerTxt}>
-        <Text style={styles.bold}>{item.key}:</Text> {item.value}
-      </Text>
-    </View>
-  );
+  console.log(item);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.txt}>{item["Module Name"]}</Text>
-      <View style={styles.innerContainer}>
-        <FlatList
-          data={filteredDetails}
-          renderItem={renderModuleData}
-          keyExtractor={(item) => item.key}
-        />
-      </View>
+      <Pressable onPress={onPress}>
+        <Text style={styles.txt}>{item[0]["Module Name"]}</Text>
+      </Pressable>
     </View>
   );
 }

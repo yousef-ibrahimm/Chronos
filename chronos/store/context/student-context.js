@@ -15,6 +15,7 @@ export const StudentContext = createContext({
   setCourseDeadlinesCx: (deadlines) => {},
   setModules: (modules) => {},
   setModuleData: (moduleData) => {},
+  setDeadlineData: (deadlineData) => {},
 });
 
 const StudentContextProvider = ({ children }) => {
@@ -25,6 +26,7 @@ const StudentContextProvider = ({ children }) => {
   const [courseDeadlines, setCourseDeadlines] = useState([]);
   const [modules, setModules] = useState([]);
   const [moduleData, setModuleData] = useState([]);
+  const [deadlineData, setDeadlineData] = useState([]);
 
   const setId = (id) => {
     setStudentId(id);
@@ -54,6 +56,12 @@ const StudentContextProvider = ({ children }) => {
     setModuleData((prevModuleData) => [...prevModuleData, ...newModuleData]);
   };
 
+  const setDeadlineDataCx = (newDeadlineData) => {
+    setDeadlineData((prevDeadlineData) => [
+      ...prevDeadlineData,
+      ...newDeadlineData,
+    ]);
+  };
   const value = {
     studentId: studentId,
     studentName: studentName,
@@ -69,6 +77,7 @@ const StudentContextProvider = ({ children }) => {
     setCourseDeadlinesCx: setCourseDeadlinesCx,
     setModules: setModulesCx,
     setModuleData: setModuleDataCx,
+    setDeadlineData: setDeadlineDataCx,
   };
 
   return (

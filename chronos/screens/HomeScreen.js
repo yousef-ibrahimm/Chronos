@@ -14,8 +14,7 @@ const HomeScreen = () => {
         const newModuleData = [];
         for (const module of modules) {
           const response = await callApi("Module Code", module);
-          newModuleData.push(response[0].data[0]);
-          console.log(newModuleData);
+          newModuleData.push(response[0].data);
         }
         setModuleData(newModuleData);
       } catch (error) {

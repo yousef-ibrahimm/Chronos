@@ -1,16 +1,19 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { StudentContext } from "../store/context/student-context";
-import { useContext, useEffect, useState } from "react";
-import Papa from "papaparse";
+import { useContext } from "react";
 import GeneralWrapper from "../components/UI/GeneralWrapper";
 
-const DeadlinesScreen = () => {
+const DeadlinesScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
-
   console.log(studentCtxt.moduleData);
 
   const renderDeadlines = (module) => {
-    return <GeneralWrapper moduleData={module} />;
+    function navigateToAssessments() {
+      navigation.navigate("Assessments", { moduleData: module });
+    }
+    return (
+      <GeneralWrapper moduleData={module} onPress={navigateToAssessments} />
+    );
   };
   return (
     <View style={styles.container}>

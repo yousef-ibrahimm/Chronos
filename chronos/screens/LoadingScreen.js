@@ -11,8 +11,8 @@ const LoadingScreen = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const response = await callStudentsApi(studentCtxt.studentId);
-        setStudentData(response.data);
         console.log("Student data", response);
+        setStudentData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

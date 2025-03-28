@@ -7,6 +7,7 @@ import DeadlinesScreen from "./screens/DeadlinesScreen";
 import SignInScreen from "./screens/SignInScreen";
 import StudentContextProvider from "./store/context/student-context";
 import LoadingScreen from "./screens/LoadingScreen";
+import AssessmentsScreen from "./screens/AssessmentsScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Deadlines" component={DeadlinesScreen} />
           <Stack.Screen name="Loading" component={LoadingScreen} />
+          <Stack.Screen name="Assessments" component={AssessmentsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </StudentContextProvider>
