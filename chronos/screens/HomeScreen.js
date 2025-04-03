@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
+import { Avatar } from "react-native-paper";
 import { callApi } from "../utils/moduleApi";
 
 const HomeScreen = () => {
@@ -31,8 +32,23 @@ const HomeScreen = () => {
     }
   }, [moduleData]);
 
+  const getStudentInitials = (fullName) => {
+    const nameParts = fullName.split(" ");
+    const initials =
+      nameParts.length >= 2
+        ? nameParts[0][0].toUpperCase() +
+          nameParts[nameParts.length - 1][0].toUpperCase()
+        : nameParts[0][0].toUpperCase();
+    return initials;
+  };
   return (
     <View style={styles.container}>
+      <View style={styles.avatarContainer}>
+        <Avatar.Text
+          size={50}
+          label={getStudentInitials(studentCtxt.studentName)}
+        />
+      </View>
       <Text style={styles.text}>Student ID: {studentCtxt.studentId}</Text>
       <Text style={styles.text}>Student Name: {studentCtxt.studentName}</Text>
     </View>
@@ -61,6 +77,11 @@ const styles = StyleSheet.create({
   moduleText: {
     fontSize: 16,
     marginBottom: 8,
+  },
+  avatarContainer: {
+    marginBottom: 16,
+    marginLeft: 16,
+    alignSelf: "flex-start", // Aligns the Avatar to the left
   },
 });
 

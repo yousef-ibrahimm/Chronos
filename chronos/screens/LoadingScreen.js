@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { StudentContext } from "../store/context/student-context";
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { callStudentsApi } from "../utils/studentsApi";
 
 const LoadingScreen = ({ navigation }) => {
@@ -30,7 +31,8 @@ const LoadingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Fetching Student Data...</Text>
+      <Text style={styles.loadingText}>Fetching Student Data...</Text>
+      <ActivityIndicator animating={true} color={"purple"} size={"large"} />
     </View>
   );
 };
@@ -41,6 +43,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
+  },
+  loadingText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
+    paddingBottom: 20,
   },
 });
 

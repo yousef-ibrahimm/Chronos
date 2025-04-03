@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 const AssessmentsScreen = ({ route }) => {
-  const item = route.params.moduleData.item;
+  const items = route.params.moduleData.item;
+
   // Define the specific properties to display
   const allowedKeys = [
     "Assessment Date",
@@ -13,35 +14,26 @@ const AssessmentsScreen = ({ route }) => {
     "Module Coordinator",
   ];
 
-  // Filter only the allowed keys for all items
-  const filteredDetails = item
-    .map((moduleItem) =>
-      allowedKeys.map((key) => ({
-        key,
-        value: moduleItem[key],
-      }))
-    )
-    .flat();
-
-  const renderModuleData = ({ item }) => (
-    <View>
-      <Text style={styles.innerTxt}>
-        <Text style={styles.bold}>{item.key}:</Text> {item.value}
-      </Text>
-    </View>
-  );
-
-  console.log(filteredDetails);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Assessments Screen</Text>
-      <View style={styles.innerContainer}>
-        <FlatList
-          data={filteredDetails}
-          renderItem={renderModuleData}
-          keyExtractor={(item) => item.key}
-        />
-      </View>
+      {items.map((moduleItem, index) => {
+        // Filter only the allowed keys for the current item
+        const filteredDetails = allowedKeys.map((key) => ({
+          key,
+          value: moduleItem[key],
+        }));
+
+        return (
+          <View key={index} style={styles.assessmentContainer}>
+            {filteredDetails.map((detail, detailIndex) => (
+              <Text key={detailIndex} style={styles.innerTxt}>
+                <Text style={styles.bold}>{detail.key}:</Text> {detail.value}
+              </Text>
+            ))}
+          </View>
+        );
+      })}
     </View>
   );
 };
@@ -52,11 +44,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f5f5f5",
+    padding: 16,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#333",
+    marginBottom: 16,
+  },
+  assessmentContainer: {
+    backgroundColor: "#fff",
+    padding: 16,
+    marginVertical: 8,
+    borderRadius: 8,
+    elevation: 2, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    width: "90%", // Adjust width to fit the screen
+  },
+  innerTxt: {
+    fontSize: 16,
+    color: "#333",
+    marginBottom: 8, // Add spacing between details
+  },
+  bold: {
+    fontWeight: "bold",
   },
 });
 

@@ -19,9 +19,10 @@ const DeadlinesScreen = ({ navigation }) => {
     <View style={styles.container}>
       {studentCtxt.moduleData.length > 0 ? (
         <FlatList
+          style={{ flex: 1 }} // Ensure it takes up the full space
           data={studentCtxt.moduleData}
           renderItem={renderDeadlines}
-          keyExtractor={() => Math.random * 1000}
+          keyExtractor={(item, index) => index.toString()} // Use index or a unique property
         />
       ) : (
         <Text style={styles.text}>Loading deadlines...</Text>
@@ -33,9 +34,7 @@ const DeadlinesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 50,
+    marginTop: 50, // Keep this if needed
   },
   text: {
     fontSize: 20,
