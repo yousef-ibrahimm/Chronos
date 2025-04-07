@@ -43,34 +43,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f9f9f9", // Light background for a clean look
     padding: 16,
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
+    fontWeight: "600",
+    color: "#222", // Darker title color for emphasis
     marginBottom: 16,
   },
   assessmentContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#fff", // White card-like background
     padding: 16,
     marginVertical: 8,
-    borderRadius: 8,
-    elevation: 2, // Shadow for Android
+    borderRadius: 12, // Rounded corners for a modern look
+    elevation: 3, // Subtle shadow for Android
     shadowColor: "#000", // Shadow for iOS
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    width: "90%", // Adjust width to fit the screen
+    shadowRadius: 6,
+    width: "90%",
   },
   innerTxt: {
     fontSize: 16,
-    color: "#333",
-    marginBottom: 8, // Add spacing between details
+    color: "#444", // Neutral text color
+    marginBottom: 8,
+    lineHeight: 22, // Better readability
   },
   bold: {
-    fontWeight: "bold",
+    fontWeight: "700", // Stronger emphasis for labels
+    color: "#000", // Black for bold text
   },
 });
 
