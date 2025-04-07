@@ -5,8 +5,6 @@ import GeneralWrapper from "../components/UI/GeneralWrapper";
 
 const DeadlinesScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
-  console.log(studentCtxt.moduleData);
-
   const renderDeadlines = (module) => {
     function navigateToAssessments() {
       navigation.navigate("Assessments", { moduleData: module });
@@ -19,9 +17,10 @@ const DeadlinesScreen = ({ navigation }) => {
     <View style={styles.container}>
       {studentCtxt.moduleData.length > 0 ? (
         <FlatList
+          style={{ flex: 1 }} // Ensure it takes up the full space
           data={studentCtxt.moduleData}
           renderItem={renderDeadlines}
-          keyExtractor={() => Math.random * 1000}
+          keyExtractor={(item, index) => index.toString()} // Use index or a unique property
         />
       ) : (
         <Text style={styles.text}>Loading deadlines...</Text>
@@ -32,14 +31,17 @@ const DeadlinesScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 75,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 50,
+    backgroundColor: "#f9f9f9", // Light background for consistency
+    padding: 16,
   },
   text: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: "600",
+    color: "#555", // Subtle text color
+    textAlign: "center", // Center the text
+    marginTop: 20,
   },
 });
 

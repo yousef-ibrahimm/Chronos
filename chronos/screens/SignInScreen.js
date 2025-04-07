@@ -16,7 +16,12 @@ const SignInScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TextInput onChangeText={(e) => setId(e)} style={styles.input} />
-      <Chip title={"Sign in"} onPress={navigateToHome} />
+      <Chip
+        title={"Sign in"}
+        onPress={navigateToHome}
+        buttonStyle={styles.chip}
+        titleStyle={styles.chipText}
+      />
     </View>
   );
 };
@@ -26,15 +31,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#f9f9f9", // Light background for a modern look
+    padding: 16,
   },
   text: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: "600",
+    color: "#222", // Darker text color for emphasis
+    marginBottom: 16,
   },
   input: {
     width: "80%",
     marginVertical: 10,
+    backgroundColor: "#fff", // White background for input
+    borderRadius: 8, // Rounded corners for modern input
+    paddingHorizontal: 12,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#ddd", // Light border for input
+  },
+  chip: {
+    marginTop: 16,
+    backgroundColor: "#6200ee", // Modern purple color for the button
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  chipText: {
+    color: "#fff", // White text for contrast
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
 

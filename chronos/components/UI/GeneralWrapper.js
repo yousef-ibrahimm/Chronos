@@ -1,47 +1,50 @@
-import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
+import { Card } from "react-native-paper";
 
 export default function GeneralWrapper({ moduleData, onPress }) {
   const item = moduleData.item;
-  console.log(item);
-
+  console.log("Item", item);
   return (
-    <View style={styles.container}>
-      <Pressable onPress={onPress}>
-        <Text style={styles.txt}>{item[0]["Module Name"]}</Text>
-      </Pressable>
-    </View>
+    <Pressable onPress={onPress}>
+      <View style={styles.cardContainer}>
+        <View style={{ borderRadius: 12, overflow: "hidden" }}>
+          <Card style={styles.card}>
+            <Card.Title
+              title={item[0]["Module Name"]}
+              subtitle={`Number of Assessments: ${item.length}`}
+              titleStyle={styles.title} // Apply custom title style
+              subtitleStyle={styles.subtitle} // Apply custom subtitle style
+              theme="dark"
+            />
+          </Card>
+        </View>
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 20,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginVertical: 4,
-    marginHorizontal: 12,
-    backgroundColor: "purple",
+  cardContainer: {
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 12,
+    elevation: 4, // Adds shadow for Android
+    shadowColor: "#000", // Adds shadow for iOS
+    shadowOffset: { width: 0, height: 1 }, // Reduce shadow height
+    shadowOpacity: 0.1, // Lower opacity
+    shadowRadius: 2, // Smaller radius
   },
-  innerContainer: {
-    borderRadius: 20,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginVertical: 4,
-    marginHorizontal: 12,
-    backgroundColor: "black",
+  card: {
+    backgroundColor: "#fff",
+    padding: 16,
   },
-  txt: {
-    fontSize: 35,
-    textAlign: "left",
-    color: "white",
-    fontWeight: "bold",
-    marginBottom: 8,
+  title: {
+    fontSize: 18, // Larger font size for the title
+    fontWeight: "bold", // Bold text for emphasis
+    color: "#333", // Darker color for better readability
   },
-  innerTxt: {
-    fontSize: 20,
-    color: "white",
-  },
-  bold: {
-    fontWeight: "bold",
+  subtitle: {
+    fontSize: 14, // Slightly smaller font size for the subtitle
+    color: "#666", // Lighter color for contrast
   },
 });
