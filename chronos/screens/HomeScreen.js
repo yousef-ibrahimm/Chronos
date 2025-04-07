@@ -70,6 +70,10 @@ const HomeScreen = () => {
         />
       </View>
       <View style={styles.nextDeadlineContainer}>
+        <Text style={styles.text}>Hi {studentCtxt.studentName}</Text>
+        <Text style={styles.text}>{studentCtxt.courseName}</Text>
+      </View>
+      <View style={styles.nextDeadlineContainer}>
         <Text style={styles.title}>Next Deadline</Text>
         <View style={styles.nextDeadline}>
           <Text style={styles.innerTxt}>
@@ -98,8 +102,6 @@ const HomeScreen = () => {
           </Text>
         </View>
       </View>
-      <Text style={styles.text}>Student ID: {studentCtxt.studentId}</Text>
-      <Text style={styles.text}>Student Name: {studentCtxt.studentName}</Text>
     </View>
   );
 };
@@ -134,6 +136,10 @@ const styles = StyleSheet.create({
   avatarContainer: {
     marginBottom: 16,
     alignSelf: "center", // Center the avatar
+  },
+  studentInfoContainer: {
+    marginBottom: 16,
+    alignItems: "center", // Center the text horizontally
   },
   nextDeadlineContainer: {
     backgroundColor: "#fff",
