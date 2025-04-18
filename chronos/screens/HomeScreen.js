@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
 import { Avatar } from "react-native-paper";
 import { callApi } from "../utils/moduleApi";
+import { Colors } from "../components/constants/colors";
 
 const HomeScreen = () => {
   const studentCtxt = useContext(StudentContext);
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#f9f9f9", // Light background for a modern look
+    backgroundColor: Colors.backgroundColour,
   },
   text: {
     fontSize: 18,
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     borderColor: "#ddd", // Light border color
     borderRadius: 12, // Rounded corners
     width: "100%",
-    backgroundColor: "#fff", // White card-like background
+    backgroundColor: Colors.containerBackgroundColour, // White card-like background
   },
   moduleText: {
     fontSize: 16,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "700", // Stronger emphasis
-    color: "#000", // Black for bold text
+    color: Colors.textColourDark, // Black for bold text
   },
 });
 

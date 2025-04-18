@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { StudentContext } from "../store/context/student-context";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { callStudentsApi } from "../utils/studentsApi";
+import { Colors } from "../components/constants/colors";
 
 const LoadingScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
@@ -47,13 +48,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f9f9f9", // Light background for consistency
+    backgroundColor: Colors.backgroundColour,
     padding: 16,
   },
   loadingText: {
     fontSize: 20,
-    fontWeight: "600",
-    color: "#555", // Subtle text color
+    fontWeight: "bold",
+    color: Colors.textColourDark, // Subtle text color
     marginBottom: 20,
     textAlign: "center",
   },

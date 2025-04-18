@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { StudentContext } from "../store/context/student-context";
 import { useContext } from "react";
 import GeneralWrapper from "../components/UI/GeneralWrapper";
+import { Colors } from "../components/constants/colors";
 
 const DeadlinesScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 75,
     flex: 1,
-    backgroundColor: "#f9f9f9", // Light background for consistency
+    backgroundColor: Colors.backgroundColour,
     padding: 16,
   },
   text: {

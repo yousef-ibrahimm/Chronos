@@ -1,5 +1,6 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import { Card } from "react-native-paper";
+import { Colors } from "../constants/colors";
 
 export default function GeneralWrapper({ moduleData, onPress }) {
   const item = moduleData.item;
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2, // Smaller radius
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.containerBackgroundColour,
     padding: 16,
   },
   title: {
