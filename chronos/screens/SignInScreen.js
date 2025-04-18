@@ -31,6 +31,7 @@ const SignInScreen = ({ navigation }) => {
         placeholder="Enter your ID"
         placeholderTextColor="#6B7280" // Muted gray for placeholder
         mode="outlined"
+        keyboardType="numeric" // Accept numbers only
       />
       <Chip
         title={"Sign In"}
@@ -45,15 +46,16 @@ const SignInScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start", // Align components to the top
     alignItems: "center",
     backgroundColor: Colors.backgroundColour, // Light modern background color
     padding: 16,
+    paddingTop: 75, // Add padding to move components down slightly
   },
   logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 24,
+    width: 200,
+    height: 200,
+    marginBottom: 20,
   },
   title: {
     fontSize: 28,
