@@ -18,10 +18,10 @@ const DeadlinesScreen = ({ navigation }) => {
     <View style={styles.container}>
       {studentCtxt.moduleData.length > 0 ? (
         <FlatList
-          style={{ flex: 1 }} // Ensure it takes up the full space
+          style={{ flex: 1 }}
           data={studentCtxt.moduleData}
           renderItem={renderDeadlines}
-          keyExtractor={(item, index) => index.toString()} // Use index or a unique property
+          keyExtractor={(item, index) => index.toString()}
         />
       ) : (
         <Text style={styles.text}>Loading deadlines...</Text>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#555", // Subtle text color
+    color: Colors.textColourDark, // Subtle text color
     textAlign: "center", // Center the text
     marginTop: 20,
   },

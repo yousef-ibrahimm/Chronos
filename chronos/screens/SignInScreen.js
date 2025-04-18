@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     marginTop: 16,
-    backgroundColor: "#4A90E2", // Modern blue for the button
+    backgroundColor: Colors.accent, // Modern blue for the button
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,

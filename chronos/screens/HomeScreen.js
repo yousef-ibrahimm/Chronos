@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
-import { Avatar } from "react-native-paper";
 import { callApi } from "../utils/moduleApi";
 import { Colors } from "../components/constants/colors";
 
@@ -33,18 +32,6 @@ const HomeScreen = () => {
     }
   }, [moduleData]);
 
-  console.log("Module data", moduleData);
-
-  const getStudentInitials = (fullName) => {
-    const nameParts = fullName.split(" ");
-    const initials =
-      nameParts.length >= 2
-        ? nameParts[0][0].toUpperCase() +
-          nameParts[nameParts.length - 1][0].toUpperCase()
-        : nameParts[0][0].toUpperCase();
-    return initials;
-  };
-
   function findClosestAssessment(data) {
     const today = new Date();
     let closestAssessment = null;
@@ -52,6 +39,9 @@ const HomeScreen = () => {
 
     data.flat(2).forEach((assessment) => {
       const assessmentDate = new Date(assessment["Assessment Date"]);
+      if (assessmentDate < today) {
+        return;
+      }
       const diff = Math.abs(assessmentDate - today);
       if (diff < smallestDiff) {
         smallestDiff = diff;
@@ -61,15 +51,8 @@ const HomeScreen = () => {
     return closestAssessment;
   }
 
-  console.log("Closest assessment", findClosestAssessment(moduleData));
   return (
     <View style={styles.container}>
-      <View style={styles.avatarContainer}>
-        <Avatar.Text
-          size={50}
-          label={getStudentInitials(studentCtxt.studentName)}
-        />
-      </View>
       <View style={styles.nextDeadlineContainer}>
         <Text style={styles.text}>Hi {studentCtxt.studentName}</Text>
         <Text style={styles.text}>{studentCtxt.courseName}</Text>
@@ -117,7 +100,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "#555", // Subtle text color
+    color: Colors.textColourDark, // Subtle text color
     marginBottom: 16,
   },
   moduleContainer: {
@@ -157,7 +140,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: "600",
-    color: "#222", // Darker title color
+    color: Colors.textColourDark, // Darker title color
     marginBottom: 12,
   },
   nextDeadline: {

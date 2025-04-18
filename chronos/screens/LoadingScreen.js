@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { StudentContext } from "../store/context/student-context";
-import { ActivityIndicator, MD2Colors } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import { callStudentsApi } from "../utils/studentsApi";
 import { Colors } from "../components/constants/colors";
 
@@ -23,7 +23,6 @@ const LoadingScreen = ({ navigation }) => {
     fetchData();
   }, [studentCtxt.studentId]);
 
-  // This useEffect will log studentData whenever it changes
   useEffect(() => {
     if (studentData) {
       navigation.navigate("MainScreens", { data: studentData });
@@ -32,6 +31,11 @@ const LoadingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("../assets/logo-dark.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <Text style={styles.loadingText}>Fetching Student Data...</Text>
       <ActivityIndicator
         animating={true}
@@ -51,10 +55,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundColour,
     padding: 16,
   },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 24, // Adds spacing below the logo
+  },
   loadingText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: Colors.textColourDark, // Subtle text color
+    color: Colors.textColourDark,
     marginBottom: 20,
     textAlign: "center",
   },
