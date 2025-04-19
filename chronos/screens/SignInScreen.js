@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Chip } from "@rneui/themed";
 import { TextInput } from "react-native-paper";
 import { StudentContext } from "../store/context/student-context";
 import { Colors } from "../components/constants/colors";
+import GoogleSignIn from "../utils/GoogleSignIn";
+import * as AuthSession from "expo-auth-session";
 
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
@@ -12,9 +14,19 @@ const SignInScreen = ({ navigation }) => {
     navigation.navigate("Loading");
   }
 
+  useEffect(() => {
+    if (
+      studentCtxt.googleInfo &&
+      Object.keys(studentCtxt.googleInfo).length > 0
+    ) {
+      navigateToHome();
+    }
+  }, [studentCtxt.googleInfo]);
+
   const setId = (id) => {
     studentCtxt.setId(id);
   };
+  console.log(AuthSession.makeRedirectUri({ useProxy: true }));
 
   return (
     <View style={styles.container}>
@@ -25,20 +37,7 @@ const SignInScreen = ({ navigation }) => {
       />
       <Text style={styles.title}>Welcome to Chronos</Text>
       <Text style={styles.subtitle}>Sign in to continue</Text>
-      <TextInput
-        onChangeText={(e) => setId(e)}
-        style={styles.input}
-        placeholder="Enter your ID"
-        placeholderTextColor="#6B7280" // Muted gray for placeholder
-        mode="outlined"
-        keyboardType="numeric" // Accept numbers only
-      />
-      <Chip
-        title={"Sign In"}
-        onPress={navigateToHome}
-        buttonStyle={styles.chip}
-        titleStyle={styles.chipText}
-      />
+      <GoogleSignIn />
     </View>
   );
 };

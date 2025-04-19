@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export const StudentContext = createContext({
   studentId: "",
   studentName: "",
+  googleInfo: {},
   courseId: "",
   courseName: "",
   courseDeadlines: [],
@@ -16,6 +17,7 @@ export const StudentContext = createContext({
   setModules: (modules) => {},
   setModuleData: (moduleData) => {},
   setDeadlineData: (deadlineData) => {},
+  setGoogleInfoCx: (info) => {},
 });
 
 const StudentContextProvider = ({ children }) => {
@@ -27,6 +29,7 @@ const StudentContextProvider = ({ children }) => {
   const [modules, setModules] = useState([]);
   const [moduleData, setModuleData] = useState([]);
   const [deadlineData, setDeadlineData] = useState([]);
+  const [googleInfo, setGoogleInfo] = useState({});
 
   const setId = (id) => {
     setStudentId(id);
@@ -62,6 +65,10 @@ const StudentContextProvider = ({ children }) => {
       ...newDeadlineData,
     ]);
   };
+
+  const setGoogleInfoCx = (info) => {
+    setGoogleInfo(info);
+  };
   const value = {
     studentId: studentId,
     studentName: studentName,
@@ -70,6 +77,7 @@ const StudentContextProvider = ({ children }) => {
     courseDeadlines: courseDeadlines,
     modules: modules,
     moduleData: moduleData,
+    googleInfo: googleInfo,
     setId: setId,
     setName: setName,
     setCourse: setCourse,
@@ -78,6 +86,7 @@ const StudentContextProvider = ({ children }) => {
     setModules: setModulesCx,
     setModuleData: setModuleDataCx,
     setDeadlineData: setDeadlineDataCx,
+    setGoogleInfoCx: setGoogleInfoCx,
   };
 
   return (
