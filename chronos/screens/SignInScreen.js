@@ -26,7 +26,7 @@ const SignInScreen = ({ navigation }) => {
   const setId = (id) => {
     studentCtxt.setId(id);
   };
-  console.log(AuthSession.makeRedirectUri({ useProxy: true }));
+// Removed unnecessary debugging log
 
   return (
     <View style={styles.container}>
