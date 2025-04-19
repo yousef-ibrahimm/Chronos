@@ -1,27 +1,43 @@
-import React, { createRef, useContext, useRef, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Chip, Input } from "@rneui/themed";
+import React, { useContext, useEffect } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { Chip } from "@rneui/themed";
 import { TextInput } from "react-native-paper";
 import { StudentContext } from "../store/context/student-context";
+import { Colors } from "../components/constants/colors";
+import GoogleSignIn from "../utils/GoogleSignIn";
+import * as AuthSession from "expo-auth-session";
 
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
+
   function navigateToHome() {
     navigation.navigate("Loading");
   }
+
+  useEffect(() => {
+    if (
+      studentCtxt.googleInfo &&
+      Object.keys(studentCtxt.googleInfo).length > 0
+    ) {
+      navigateToHome();
+    }
+  }, [studentCtxt.googleInfo]);
+
   const setId = (id) => {
     studentCtxt.setId(id);
   };
+// Removed unnecessary debugging log
 
   return (
     <View style={styles.container}>
-      <TextInput onChangeText={(e) => setId(e)} style={styles.input} />
-      <Chip
-        title={"Sign in"}
-        onPress={navigateToHome}
-        buttonStyle={styles.chip}
-        titleStyle={styles.chipText}
+      <Image
+        source={require("../assets/logo-dark.png")}
+        style={styles.logo}
+        resizeMode="contain"
       />
+      <Text style={styles.title}>Welcome to Chronos</Text>
+      <Text style={styles.subtitle}>Sign in to continue</Text>
+      <GoogleSignIn />
     </View>
   );
 };
@@ -29,36 +45,51 @@ const SignInScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start", // Align components to the top
     alignItems: "center",
-    backgroundColor: "#f9f9f9", // Light background for a modern look
+    backgroundColor: Colors.backgroundColour, // Light modern background color
     padding: 16,
+    paddingTop: 75, // Add padding to move components down slightly
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "600",
-    color: "#222", // Darker text color for emphasis
-    marginBottom: 16,
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: Colors.textColourDark, // Dark modern text color
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 18, // Slightly larger font size for better readability
+    fontWeight: "400", // Normal weight for a clean look
+    color: Colors.textColourDark, // A darker muted gray for better contrast
+    marginBottom: 24,
+    textAlign: "center", // Center-align the subtitle for a balanced layout
+    lineHeight: 24, // Add line height for better spacing
   },
   input: {
-    width: "80%",
+    width: "85%",
     marginVertical: 10,
-    backgroundColor: "#fff", // White background for input
+    backgroundColor: "#FFFFFF", // White background for input
     borderRadius: 8, // Rounded corners for modern input
     paddingHorizontal: 12,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: "#ddd", // Light border for input
+    borderColor: "#D1D5DB", // Light gray border for input
+    color: "#1F2937", // Text color inside input
   },
   chip: {
     marginTop: 16,
-    backgroundColor: "#6200ee", // Modern purple color for the button
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: Colors.accent, // Modern blue for the button
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 8,
   },
   chipText: {
-    color: "#fff", // White text for contrast
+    color: "#FFFFFF", // White text for contrast
     fontSize: 16,
     fontWeight: "600",
   },

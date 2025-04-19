@@ -8,6 +8,7 @@ import SignInScreen from "./screens/SignInScreen";
 import StudentContextProvider from "./store/context/student-context";
 import LoadingScreen from "./screens/LoadingScreen";
 import AssessmentsScreen from "./screens/AssessmentsScreen";
+import GoogleSignIn from "./utils/GoogleSignIn";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
           <Stack.Screen name="Deadlines" component={DeadlinesScreen} />
           <Stack.Screen name="Loading" component={LoadingScreen} />
           <Stack.Screen name="Assessments" component={AssessmentsScreen} />
+          <Stack.Screen name="Google" component={GoogleSignIn} />
         </Stack.Navigator>
       </NavigationContainer>
     </StudentContextProvider>

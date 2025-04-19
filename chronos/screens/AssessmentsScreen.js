@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Colors } from "../components/constants/colors";
 
 const AssessmentsScreen = ({ route }) => {
   const items = route.params.moduleData.item;
 
-  // Define the specific properties to display
   const allowedKeys = [
     "Assessment Date",
     "Method of Assessment",
@@ -16,9 +16,8 @@ const AssessmentsScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Assessments Screen</Text>
+      <Text style={styles.title}>{items[0]["Module Name"]}</Text>
       {items.map((moduleItem, index) => {
-        // Filter only the allowed keys for the current item
         const filteredDetails = allowedKeys.map((key) => ({
           key,
           value: moduleItem[key],
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f9f9f9", // Light background for a clean look
+    backgroundColor: Colors.backgroundColour,
     padding: 16,
   },
   title: {
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   assessmentContainer: {
-    backgroundColor: "#fff", // White card-like background
+    backgroundColor: Colors.containerBackgroundColour, // White card-like background
     padding: 16,
     marginVertical: 8,
     borderRadius: 12, // Rounded corners for a modern look
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "700", // Stronger emphasis for labels
-    color: "#000", // Black for bold text
+    color: Colors.textColourDark, // Black for bold text
   },
 });
 
