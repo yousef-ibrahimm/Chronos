@@ -9,11 +9,17 @@ const LoadingScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const [studentData, setStudentData] = useState();
 
+  const extractStudentId = (email) => {
+    const match = email.match(/up(\d+)@/);
+    return match ? match[1] : null;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await callStudentsApi(studentCtxt.studentId);
-        console.log("Student data", response);
+        const response = await callStudentsApi(
+          extractStudentId(studentCtxt.googleInfo.email)
+        );
         setStudentData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
