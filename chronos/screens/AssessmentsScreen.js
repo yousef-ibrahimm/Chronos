@@ -1,9 +1,36 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Linking } from "react-native";
 import { Colors } from "../components/constants/colors";
+import { Button } from "react-native-paper";
 
 const AssessmentsScreen = ({ route }) => {
   const items = route.params.moduleData.item;
+
+  const formatDateForCalendar = (date) => {
+    const isoString = new Date(date).toISOString();
+    return isoString.replace(/[-:]/g, "").split(".")[0] + "Z";
+  };
+
+  const exportToCalendar = (moduleItem) => {
+    const title = `Assessment for ${moduleItem["Module Name"]}`;
+    const description = `Details: ${moduleItem["Method of Assessment"]} worth ${
+      moduleItem["Weight"] * 100
+    }%, Length ${moduleItem["Length"]}, Due on ${
+      moduleItem["Assessment Date"]
+    }`;
+    const startDate = formatDateForCalendar(new Date());
+    const endDate = formatDateForCalendar(moduleItem["Assessment Date"]);
+
+    const baseUrl =
+      "https://calendar.google.com/calendar/render?action=TEMPLATE";
+    const url = `${baseUrl}&text=${encodeURIComponent(
+      title
+    )}&details=${encodeURIComponent(
+      description
+    )}&dates=${startDate}/${endDate}`;
+
+    Linking.openURL(url);
+  };
 
   const allowedKeys = [
     "Assessment Date",
@@ -25,6 +52,16 @@ const AssessmentsScreen = ({ route }) => {
 
         return (
           <View key={index} style={styles.assessmentContainer}>
+            <View style={styles.headerContainer}>
+              <Text style={styles.moduleTitle}>Assessment {index + 1}</Text>
+              <Button
+                mode="contained"
+                onPress={() => exportToCalendar(moduleItem)}
+                style={{ backgroundColor: Colors.primary }}
+              >
+                Add to Calendar
+              </Button>
+            </View>
             {filteredDetails.map((detail, detailIndex) => (
               <Text key={detailIndex} style={styles.innerTxt}>
                 <Text style={styles.bold}>{detail.key}:</Text> {detail.value}
@@ -62,6 +99,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 6,
     width: "90%",
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8, // Adds spacing below the header
+  },
+  moduleTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#222",
+  },
+  button: {
+    fontSize: 16,
+    color: Colors.primary, // Use a primary color for the button
+    fontWeight: "bold",
   },
   innerTxt: {
     fontSize: 16,
