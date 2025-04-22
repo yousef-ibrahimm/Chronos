@@ -1,14 +1,21 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
 import { callApi } from "../utils/moduleApi";
 import { Colors } from "../components/constants/colors";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const modules = studentCtxt.modules.split(",");
   const [moduleData, setModuleData] = useState([]);
   console.log("Google", studentCtxt.googleInfo);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,40 +58,78 @@ const HomeScreen = () => {
     return closestAssessment;
   }
 
+  const closestAssessment = findClosestAssessment(moduleData);
+  const daysRemaining = closestAssessment
+    ? Math.ceil(
+        (new Date(closestAssessment["Assessment Date"]) - new Date()) /
+          (1000 * 60 * 60 * 24)
+      )
+    : null;
+
+  const handleModulePress = (module) => {
+    console.log("MODULEEE", module);
+    navigation.navigate("Assessments", { moduleData: module });
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.nextDeadlineContainer}>
-        <Text style={styles.text}>Hi {studentCtxt.studentName}</Text>
-        <Text style={styles.text}>{studentCtxt.courseName}</Text>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Chronos</Text>
+        <Text style={styles.headerSubtitle}>
+          Welcome, {studentCtxt.studentName}
+        </Text>
       </View>
-      <View style={styles.nextDeadlineContainer}>
-        <Text style={styles.title}>Next Deadline</Text>
-        <View style={styles.nextDeadline}>
-          <Text style={styles.innerTxt}>
-            <Text style={styles.bold}>Module:</Text>{" "}
-            {findClosestAssessment(moduleData)?.["Module Name"] || "Loading..."}
-          </Text>
-          <Text style={styles.innerTxt}>
-            <Text style={styles.bold}>Assessment:</Text>{" "}
-            {findClosestAssessment(moduleData)?.["Method of Assessment"] ||
-              "Loading..."}
-          </Text>
-          <Text style={styles.innerTxt}>
-            <Text style={styles.bold}>Due in:</Text>{" "}
-            {(() => {
-              const assessmentDate =
-                findClosestAssessment(moduleData)?.["Assessment Date"];
-              if (assessmentDate) {
-                const today = new Date();
-                const date = new Date(assessmentDate);
-                const diffTime = date - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return diffDays > 0 ? `${diffDays} days` : "Due today!";
-              }
-              return "N/A";
-            })()}
-          </Text>
-        </View>
+
+      {/* Next Deadline Section */}
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Next Deadline</Text>
+        {closestAssessment ? (
+          <View style={styles.cardContent}>
+            <Text style={styles.cardText}>
+              <Text style={styles.bold}>Module:</Text>{" "}
+              {closestAssessment["Module Name"]}
+            </Text>
+            <Text style={styles.cardText}>
+              <Text style={styles.bold}>Assessment:</Text>{" "}
+              {closestAssessment["Method of Assessment"]}
+            </Text>
+            <Text style={styles.cardText}>
+              <Text style={styles.bold}>Due in:</Text>{" "}
+              <Text
+                style={[
+                  styles.daysRemaining,
+                  daysRemaining <= 3
+                    ? styles.dueSoon
+                    : daysRemaining <= 7
+                    ? styles.dueSoonish
+                    : styles.dueLater,
+                ]}
+              >
+                {daysRemaining > 0 ? `${daysRemaining} days` : "Due today!"}
+              </Text>
+            </Text>
+          </View>
+        ) : (
+          <Text style={styles.loadingText}>Loading...</Text>
+        )}
+      </View>
+
+      {/* Module List */}
+      <View style={styles.moduleListContainer}>
+        <Text style={styles.moduleListTitle}>Your Modules</Text>
+        <FlatList
+          data={moduleData}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.moduleItem}
+              onPress={() => handleModulePress(item)}
+            >
+              <Text style={styles.moduleText}>{item[0]["Module Name"]}</Text>
+            </TouchableOpacity>
+          )}
+        />
       </View>
     </View>
   );
@@ -93,68 +138,91 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
     backgroundColor: Colors.backgroundColour,
+    padding: 20,
   },
-  text: {
+  header: {
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: Colors.textColourDark,
+  },
+  headerSubtitle: {
     fontSize: 18,
-    color: Colors.textColourDark, // Subtle text color
+    fontWeight: "400",
+    color: Colors.textColourDark,
+    marginTop: 4,
+  },
+  card: {
+    backgroundColor: "#f9f9f9",
+    borderRadius: 16,
+    padding: 20,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    marginVertical: 12,
+  },
+  cardTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: Colors.textColourDark,
     marginBottom: 16,
+    textAlign: "center",
   },
-  moduleContainer: {
-    marginTop: 16,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: "#ddd", // Light border color
-    borderRadius: 12, // Rounded corners
-    width: "100%",
-    backgroundColor: Colors.containerBackgroundColour, // White card-like background
+  cardContent: {
+    alignItems: "flex-start",
   },
-  moduleText: {
-    fontSize: 16,
-    color: "#333",
-    marginBottom: 8,
-  },
-  avatarContainer: {
-    marginBottom: 16,
-    alignSelf: "center", // Center the avatar
-  },
-  studentInfoContainer: {
-    marginBottom: 16,
-    alignItems: "center", // Center the text horizontally
-  },
-  nextDeadlineContainer: {
-    backgroundColor: "#fff",
-    padding: 16,
-    marginVertical: 8,
-    borderRadius: 12,
-    elevation: 3, // Subtle shadow for Android
-    shadowColor: "#000", // Shadow for iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    width: "90%",
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "600",
-    color: Colors.textColourDark, // Darker title color
+  cardText: {
+    fontSize: 18,
+    color: "#555",
     marginBottom: 12,
-  },
-  nextDeadline: {
-    marginTop: 8,
-  },
-  innerTxt: {
-    fontSize: 16,
-    color: "#444", // Neutral text color
-    marginBottom: 12,
-    lineHeight: 22, // Better readability
+    lineHeight: 26,
   },
   bold: {
-    fontWeight: "700", // Stronger emphasis
-    color: Colors.textColourDark, // Black for bold text
+    fontWeight: "700",
+    color: Colors.textColourDark,
+  },
+  daysRemaining: {
+    fontWeight: "700",
+  },
+  dueSoon: {
+    color: "red",
+  },
+  dueSoonish: {
+    color: "orange",
+  },
+  dueLater: {
+    color: "green",
+  },
+  loadingText: {
+    fontSize: 16,
+    color: "#888",
+    textAlign: "center",
+  },
+  moduleListContainer: {
+    marginTop: 20,
+  },
+  moduleListTitle: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: Colors.textColourDark,
+    marginBottom: 12,
+  },
+  moduleItem: {
+    padding: 15,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 12,
+    marginBottom: 10,
+    elevation: 2,
+  },
+  moduleText: {
+    fontSize: 18,
+    color: Colors.textColourDark,
   },
 });
 

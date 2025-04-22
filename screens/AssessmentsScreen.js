@@ -4,7 +4,7 @@ import { Colors } from "../components/constants/colors";
 import { Button } from "react-native-paper";
 
 const AssessmentsScreen = ({ route }) => {
-  const items = route.params.moduleData.item;
+  const items = route.params.moduleData;
 
   const formatDateForCalendar = (date) => {
     const isoString = new Date(date).toISOString();

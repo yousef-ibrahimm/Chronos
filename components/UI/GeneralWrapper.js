@@ -4,7 +4,7 @@ import { Colors } from "../constants/colors";
 
 export default function GeneralWrapper({ moduleData, onPress }) {
   const item = moduleData.item;
-  console.log("Item", item);
+
   return (
     <Pressable onPress={onPress}>
       <View style={styles.cardContainer}>

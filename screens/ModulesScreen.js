@@ -8,7 +8,7 @@ const ModulesScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const renderDeadlines = (module) => {
     function navigateToAssessments() {
-      navigation.navigate("Assessments", { moduleData: module });
+      navigation.navigate("Assessments", { moduleData: module.item });
     }
     return (
       <GeneralWrapper moduleData={module} onPress={navigateToAssessments} />
