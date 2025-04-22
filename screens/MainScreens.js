@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons"; // Import icons for tab bar
 import HomeScreen from "./HomeScreen";
-import DeadlinesScreen from "./DeadlinesScreen";
 import { StudentContext } from "../store/context/student-context";
+import ModulesScreen from "./ModulesScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,8 +25,8 @@ const MainScreens = ({ route }) => {
 
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Deadlines") {
-            iconName = focused ? "calendar" : "calendar-outline";
+          } else if (route.name === "Modules") {
+            iconName = focused ? "book" : "book-outline"; // Updated icon for Modules
           }
 
           // Return the appropriate icon
@@ -46,7 +46,7 @@ const MainScreens = ({ route }) => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Deadlines" component={DeadlinesScreen} />
+      <Tab.Screen name="Modules" component={ModulesScreen} />
     </Tab.Navigator>
   );
 };

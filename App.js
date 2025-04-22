@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import MainScreens from "./screens/MainScreens";
 import HomeScreen from "./screens/HomeScreen";
-import DeadlinesScreen from "./screens/DeadlinesScreen";
+import ModulesScreen from "./screens/ModulesScreen";
 import SignInScreen from "./screens/SignInScreen";
 import StudentContextProvider from "./store/context/student-context";
 import LoadingScreen from "./screens/LoadingScreen";
@@ -23,7 +23,7 @@ export default function App() {
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="MainScreens" component={MainScreens} />
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Deadlines" component={DeadlinesScreen} />
+          <Stack.Screen name="Modules" component={ModulesScreen} />
           <Stack.Screen name="Loading" component={LoadingScreen} />
           <Stack.Screen name="Assessments" component={AssessmentsScreen} />
           <Stack.Screen name="Google" component={GoogleSignIn} />

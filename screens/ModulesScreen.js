@@ -4,7 +4,7 @@ import { useContext } from "react";
 import GeneralWrapper from "../components/UI/GeneralWrapper";
 import { Colors } from "../components/constants/colors";
 
-const DeadlinesScreen = ({ navigation }) => {
+const ModulesScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const renderDeadlines = (module) => {
     function navigateToAssessments() {
@@ -24,7 +24,7 @@ const DeadlinesScreen = ({ navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (
-        <Text style={styles.text}>Loading deadlines...</Text>
+        <Text style={styles.text}>Loading Modules...</Text>
       )}
     </View>
   );
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeadlinesScreen;
+export default ModulesScreen;
