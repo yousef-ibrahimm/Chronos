@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from "react-native"; // Added ActivityIndicator
 import { StudentContext } from "../store/context/student-context";
 import { useContext } from "react";
 import GeneralWrapper from "../components/UI/GeneralWrapper";
@@ -24,7 +30,10 @@ const ModulesScreen = ({ navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (
-        <Text style={styles.text}>Loading Modules...</Text>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={Colors.primaryColour} />
+          <Text style={styles.text}>Loading Modules...</Text>
+        </View>
       )}
     </View>
   );
@@ -36,6 +45,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundColour,
     padding: 16,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     fontSize: 20,

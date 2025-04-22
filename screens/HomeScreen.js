@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator, // Added ActivityIndicator
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
@@ -14,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const modules = studentCtxt.modules.split(",");
   const [moduleData, setModuleData] = useState([]);
-  console.log("Google", studentCtxt.googleInfo);
+  const [isLoadingModules, setIsLoadingModules] = useState(true); // Added loading state for modules
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,8 @@ const HomeScreen = ({ navigation }) => {
         setModuleData(newModuleData);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoadingModules(false); // Set loading to false after fetching
       }
     };
 
@@ -67,7 +70,6 @@ const HomeScreen = ({ navigation }) => {
     : null;
 
   const handleModulePress = (module) => {
-    console.log("MODULEEE", module);
     navigation.navigate("Assessments", { moduleData: module });
   };
 
@@ -118,18 +120,25 @@ const HomeScreen = ({ navigation }) => {
       {/* Module List */}
       <View style={styles.moduleListContainer}>
         <Text style={styles.moduleListTitle}>Your Modules</Text>
-        <FlatList
-          data={moduleData}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.moduleItem}
-              onPress={() => handleModulePress(item)}
-            >
-              <Text style={styles.moduleText}>{item[0]["Module Name"]}</Text>
-            </TouchableOpacity>
-          )}
-        />
+        {isLoadingModules ? ( // Show loading animation while modules are being fetched
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={Colors.primaryColour} />
+            <Text style={styles.loadingText}>Loading Modules...</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={moduleData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.moduleItem}
+                onPress={() => handleModulePress(item)}
+              >
+                <Text style={styles.moduleText}>{item[0]["Module Name"]}</Text>
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </View>
     </View>
   );
@@ -203,6 +212,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#888",
     textAlign: "center",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
   },
   moduleListContainer: {
     marginTop: 20,
