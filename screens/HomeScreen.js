@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
 import { callApi } from "../utils/moduleApi";
 import { Colors } from "../components/constants/colors";
-import * as AuthSession from "expo-auth-session";
 
 const HomeScreen = () => {
   const studentCtxt = useContext(StudentContext);
