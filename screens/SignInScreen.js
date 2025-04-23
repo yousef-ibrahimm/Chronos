@@ -1,11 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { Chip } from "@rneui/themed";
-import { TextInput } from "react-native-paper";
 import { StudentContext } from "../store/context/student-context";
 import { Colors } from "../components/constants/colors";
 import GoogleSignIn from "../utils/GoogleSignIn";
-import * as AuthSession from "expo-auth-session";
 
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
@@ -26,7 +23,7 @@ const SignInScreen = ({ navigation }) => {
   const setId = (id) => {
     studentCtxt.setId(id);
   };
-// Removed unnecessary debugging log
+  // Removed unnecessary debugging log
 
   return (
     <View style={styles.container}>
@@ -45,11 +42,11 @@ const SignInScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start", // Align components to the top
+    justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: Colors.backgroundColour, // Light modern background color
+    backgroundColor: Colors.backgroundColour,
     padding: 16,
-    paddingTop: 75, // Add padding to move components down slightly
+    paddingTop: 75,
   },
   logo: {
     width: 200,
@@ -59,37 +56,37 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: Colors.textColourDark, // Dark modern text color
+    color: Colors.textColourDark,
     marginBottom: 8,
   },
   subtitle: {
-    fontSize: 18, // Slightly larger font size for better readability
-    fontWeight: "400", // Normal weight for a clean look
-    color: Colors.textColourDark, // A darker muted gray for better contrast
+    fontSize: 18,
+    fontWeight: "400",
+    color: Colors.textColourDark,
     marginBottom: 24,
-    textAlign: "center", // Center-align the subtitle for a balanced layout
-    lineHeight: 24, // Add line height for better spacing
+    textAlign: "center",
+    lineHeight: 24,
   },
   input: {
     width: "85%",
     marginVertical: 10,
-    backgroundColor: "#FFFFFF", // White background for input
-    borderRadius: 8, // Rounded corners for modern input
+    backgroundColor: "#FFFFFF",
+    borderRadius: 8,
     paddingHorizontal: 12,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: "#D1D5DB", // Light gray border for input
-    color: "#1F2937", // Text color inside input
+    borderColor: "#D1D5DB",
+    color: "#1F2937",
   },
   chip: {
     marginTop: 16,
-    backgroundColor: Colors.accent, // Modern blue for the button
+    backgroundColor: Colors.accent,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
   },
   chipText: {
-    color: "#FFFFFF", // White text for contrast
+    color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "600",
   },

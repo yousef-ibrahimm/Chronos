@@ -4,7 +4,7 @@ import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
-} from "react-native"; // Added ActivityIndicator
+} from "react-native";
 import { StudentContext } from "../store/context/student-context";
 import { useContext } from "react";
 import GeneralWrapper from "../components/UI/GeneralWrapper";
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: "600",
-    color: Colors.textColourDark, // Subtle text color
-    textAlign: "center", // Center the text
+    color: Colors.textColourDark,
+    textAlign: "center",
     marginTop: 20,
   },
 });

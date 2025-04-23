@@ -19,29 +19,28 @@ const MainScreens = ({ route }) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false, // Remove the title at the top
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Modules") {
-            iconName = focused ? "book" : "book-outline"; // Updated icon for Modules
+            iconName = focused ? "book" : "book-outline";
           }
 
-          // Return the appropriate icon
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#FFFFFF", // White for active tab icons/text
-        tabBarInactiveTintColor: "#BB86FC", // Light purple for inactive tab icons/text
+        tabBarActiveTintColor: "#FFFFFF",
+        tabBarInactiveTintColor: "#BB86FC",
         tabBarStyle: {
-          backgroundColor: "#6200EE", // Modern purple color for the tab bar
-          paddingBottom: 5, // Add some padding for better appearance
-          height: 60, // Adjust height for better usability
+          backgroundColor: "#6200EE",
+          paddingBottom: 5,
+          height: 60,
         },
         tabBarLabelStyle: {
-          fontSize: 12, // Adjust font size for labels
-          fontWeight: "bold", // Make labels bold
+          fontSize: 12,
+          fontWeight: "bold",
         },
       })}
     >

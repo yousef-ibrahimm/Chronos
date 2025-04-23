@@ -4,7 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  ActivityIndicator, // Added ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../store/context/student-context";
@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const modules = studentCtxt.modules.split(",");
   const [moduleData, setModuleData] = useState([]);
-  const [isLoadingModules, setIsLoadingModules] = useState(true); // Added loading state for modules
+  const [isLoadingModules, setIsLoadingModules] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +75,6 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Chronos</Text>
         <Text style={styles.headerSubtitle}>
@@ -83,7 +82,6 @@ const HomeScreen = ({ navigation }) => {
         </Text>
       </View>
 
-      {/* Next Deadline Section */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Next Deadline</Text>
         {closestAssessment ? (
@@ -117,10 +115,9 @@ const HomeScreen = ({ navigation }) => {
         )}
       </View>
 
-      {/* Module List */}
       <View style={styles.moduleListContainer}>
         <Text style={styles.moduleListTitle}>Your Modules</Text>
-        {isLoadingModules ? ( // Show loading animation while modules are being fetched
+        {isLoadingModules ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={Colors.primaryColour} />
             <Text style={styles.loadingText}>Loading Modules...</Text>
