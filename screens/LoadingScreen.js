@@ -8,6 +8,7 @@ import { Colors } from "../components/constants/colors";
 const LoadingScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const [studentData, setStudentData] = useState();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const extractStudentId = (email) => {
     const match = email.match(/up(\d+)@/);
@@ -17,12 +18,29 @@ const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await callStudentsApi(
-          extractStudentId(studentCtxt.googleInfo.email)
-        );
+        const email = studentCtxt.googleInfo.email;
+
+        // Validate email domain
+        if (!email.endsWith("@myport.ac.uk")) {
+          setErrorMessage(
+            "Invalid email. Please use an @myport.ac.uk email address."
+          );
+          return;
+        }
+
+        const studentId = extractStudentId(email);
+        if (!studentId) {
+          setErrorMessage("Unable to extract student ID from email.");
+          return;
+        }
+
+        const response = await callStudentsApi(studentId);
         setStudentData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setErrorMessage(
+          "Failed to fetch student data. Please try again or contact IT support."
+        );
       }
     };
 
@@ -42,13 +60,19 @@ const LoadingScreen = ({ navigation }) => {
         style={styles.logo}
         resizeMode="contain"
       />
-      <Text style={styles.loadingText}>Fetching Student Data...</Text>
-      <ActivityIndicator
-        animating={true}
-        color={"purple"}
-        size={"large"}
-        style={styles.activityIndicator}
-      />
+      {errorMessage ? (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      ) : (
+        <>
+          <Text style={styles.loadingText}>Fetching Student Data...</Text>
+          <ActivityIndicator
+            animating={true}
+            color={"purple"}
+            size={"large"}
+            style={styles.activityIndicator}
+          />
+        </>
+      )}
     </View>
   );
 };
@@ -71,6 +95,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.textColourDark,
     marginBottom: 20,
+    textAlign: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "red",
     textAlign: "center",
   },
   activityIndicator: {

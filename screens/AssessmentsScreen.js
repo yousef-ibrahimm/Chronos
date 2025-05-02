@@ -6,9 +6,21 @@ import { Button } from "react-native-paper";
 const AssessmentsScreen = ({ route }) => {
   const items = route.params.moduleData;
 
-  const formatDateForCalendar = (date) => {
+  const formatDateToDisplay = (date) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const formattedDate = new Date(date).toLocaleDateString("en-GB", options);
+    return formattedDate.replace(/\//g, "/");
+  };
+
+  const formatDateCalendar = (date) => {
     const isoString = new Date(date).toISOString();
     return isoString.replace(/[-:]/g, "").split(".")[0] + "Z";
+  };
+
+  const hasDeadlinePassed = (deadline) => {
+    const currentDate = new Date();
+    const deadlineDate = new Date(deadline);
+    return currentDate > deadlineDate;
   };
 
   const exportToCalendar = (moduleItem) => {
@@ -18,8 +30,8 @@ const AssessmentsScreen = ({ route }) => {
     }%, Length ${moduleItem["Length"]}, Due on ${
       moduleItem["Assessment Date"]
     }`;
-    const startDate = formatDateForCalendar(new Date());
-    const endDate = formatDateForCalendar(moduleItem["Assessment Date"]);
+    const startDate = formatDateCalendar(new Date());
+    const endDate = formatDateCalendar(moduleItem["Assessment Date"]);
 
     const baseUrl =
       "https://calendar.google.com/calendar/render?action=TEMPLATE";
@@ -50,6 +62,10 @@ const AssessmentsScreen = ({ route }) => {
           value: moduleItem[key],
         }));
 
+        const isDeadlinePassed = hasDeadlinePassed(
+          moduleItem["Assessment Date"]
+        );
+
         return (
           <View key={index} style={styles.assessmentContainer}>
             <View style={styles.headerContainer}>
@@ -57,14 +73,22 @@ const AssessmentsScreen = ({ route }) => {
               <Button
                 mode="contained"
                 onPress={() => exportToCalendar(moduleItem)}
-                style={{ backgroundColor: Colors.primary }}
+                disabled={isDeadlinePassed}
+                style={{
+                  backgroundColor: isDeadlinePassed
+                    ? Colors.disabledButtonColor
+                    : Colors.primary,
+                }}
               >
-                Add to Calendar
+                {isDeadlinePassed ? "Deadline Passed" : "Add to Calendar"}
               </Button>
             </View>
             {filteredDetails.map((detail, detailIndex) => (
               <Text key={detailIndex} style={styles.innerTxt}>
-                <Text style={styles.bold}>{detail.key}:</Text> {detail.value}
+                <Text style={styles.bold}>{detail.key}:</Text>{" "}
+                {detail.key === "Assessment Date"
+                  ? formatDateToDisplay(detail.value)
+                  : detail.value}
               </Text>
             ))}
           </View>
