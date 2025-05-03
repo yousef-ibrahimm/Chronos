@@ -77,7 +77,7 @@ const AssessmentsScreen = ({ route }) => {
                 style={{
                   backgroundColor: isDeadlinePassed
                     ? Colors.disabledButtonColor
-                    : Colors.primary,
+                    : "black",
                 }}
               >
                 {isDeadlinePassed ? "Deadline Passed" : "Add to Calendar"}

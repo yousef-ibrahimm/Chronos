@@ -30,7 +30,7 @@ export default function App() {
             component={AssessmentsScreen}
             options={{
               headerShown: true,
-              headerTitle: " ",
+              headerTitle: null,
             }}
           />
           <Stack.Screen name="Google" component={GoogleSignIn} />

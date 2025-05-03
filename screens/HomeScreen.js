@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 20,
     alignItems: "center",
+    marginTop: 60,
   },
   headerTitle: {
     fontSize: 28,
