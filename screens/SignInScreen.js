@@ -26,7 +26,7 @@ const SignInScreen = ({ navigation }) => {
   useEffect(() => {
     if (Platform.OS === "ios" || Platform.OS === "android") {
       // Set mock data and navigate to loading screen
-      studentCtxt.googleInfo = mockGoogleInfo;
+      studentCtxt.setGoogleInfo(mockGoogleInfo);
       navigateToHome();
     } else if (
       studentCtxt.googleInfo &&
