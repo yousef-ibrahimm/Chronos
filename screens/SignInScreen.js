@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 import { StudentContext } from "../store/context/student-context";
 import { Colors } from "../components/constants/colors";
 import GoogleSignIn from "../utils/GoogleSignIn";
@@ -7,14 +7,13 @@ import GoogleSignIn from "../utils/GoogleSignIn";
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
 
-  //Strictly for testing purposes for mobile version.
   const mockGoogleInfo = {
     email: "up2051442@myport.ac.uk",
-    family_name: "Doe",
-    given_name: "John Doe",
+    family_name: "Ibrahim",
+    given_name: "Yousef Yaser Ibrahim Fathy",
     hd: "myport.ac.uk",
     id: "101079455864733419091",
-    name: "John Doe",
+    name: "Yousef Yaser Ibrahim Fathy Ibrahim",
     picture:
       "https://lh3.googleusercontent.com/a/ACg8ocJx1f9Zn47TNUahWBaR8rkR7pADZWeywvHs7ClUYoe62g5a5g=s96-c",
     verified_email: true,
@@ -25,18 +24,23 @@ const SignInScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    if (
+    if (Platform.OS === "ios" || Platform.OS === "android") {
+      // Set mock data and navigate to loading screen
+      studentCtxt.setGoogleInfo(mockGoogleInfo);
+      navigateToHome();
+    } else if (
       studentCtxt.googleInfo &&
       Object.keys(studentCtxt.googleInfo).length > 0
     ) {
+      console.log("SignInScreen", studentCtxt.googleInfo);
       navigateToHome();
     }
   }, [studentCtxt.googleInfo]);
 
-  const setId = (id) => {
-    studentCtxt.setId(id);
-  };
-  // Removed unnecessary debugging log
+  if (Platform.OS === "ios" || Platform.OS === "android") {
+    // Skip rendering GoogleSignIn for mobile devices
+    return null;
+  }
 
   return (
     <View style={styles.container}>

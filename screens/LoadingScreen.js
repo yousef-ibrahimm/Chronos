@@ -8,6 +8,7 @@ import { Colors } from "../components/constants/colors";
 const LoadingScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
   const [studentData, setStudentData] = useState();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const extractStudentId = (email) => {
     const match = email.match(/up(\d+)@/);
@@ -37,6 +38,9 @@ const LoadingScreen = ({ navigation }) => {
         setStudentData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setErrorMessage(
+          "Failed to fetch student data. Please try again or contact IT support."
+        );
       }
     };
 
@@ -56,13 +60,19 @@ const LoadingScreen = ({ navigation }) => {
         style={styles.logo}
         resizeMode="contain"
       />
-      <Text style={styles.loadingText}>Fetching Student Data...</Text>
-      <ActivityIndicator
-        animating={true}
-        color={"purple"}
-        size={"large"}
-        style={styles.activityIndicator}
-      />
+      {errorMessage ? (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      ) : (
+        <>
+          <Text style={styles.loadingText}>Fetching Student Data...</Text>
+          <ActivityIndicator
+            animating={true}
+            color={"purple"}
+            size={"large"}
+            style={styles.activityIndicator}
+          />
+        </>
+      )}
     </View>
   );
 };
@@ -85,6 +95,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.textColourDark,
     marginBottom: 20,
+    textAlign: "center",
+  },
+  errorText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "red",
     textAlign: "center",
   },
   activityIndicator: {
