@@ -25,7 +25,14 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Modules" component={ModulesScreen} />
           <Stack.Screen name="Loading" component={LoadingScreen} />
-          <Stack.Screen name="Assessments" component={AssessmentsScreen} />
+          <Stack.Screen
+            name="Assessments"
+            component={AssessmentsScreen}
+            options={{
+              headerShown: true,
+              headerTitle: null,
+            }}
+          />
           <Stack.Screen name="Google" component={GoogleSignIn} />
         </Stack.Navigator>
       </NavigationContainer>
