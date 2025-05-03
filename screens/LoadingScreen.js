@@ -17,9 +17,23 @@ const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await callStudentsApi(
-          extractStudentId(studentCtxt.googleInfo.email)
-        );
+        const email = studentCtxt.googleInfo.email;
+
+        // Validate email domain
+        if (studentCtxt.googleInfo.hd !== "myport.ac.uk") {
+          setErrorMessage(
+            "Invalid email. Please use an @myport.ac.uk email address."
+          );
+          return;
+        }
+
+        const studentId = extractStudentId(email);
+        if (!studentId) {
+          setErrorMessage("Unable to extract student ID from email.");
+          return;
+        }
+
+        const response = await callStudentsApi(studentId);
         setStudentData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

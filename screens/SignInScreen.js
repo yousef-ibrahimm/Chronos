@@ -7,6 +7,19 @@ import GoogleSignIn from "../utils/GoogleSignIn";
 const SignInScreen = ({ navigation }) => {
   const studentCtxt = useContext(StudentContext);
 
+  //Strictly for testing purposes for mobile version.
+  const mockGoogleInfo = {
+    email: "up2051442@myport.ac.uk",
+    family_name: "Doe",
+    given_name: "John Doe",
+    hd: "myport.ac.uk",
+    id: "101079455864733419091",
+    name: "John Doe",
+    picture:
+      "https://lh3.googleusercontent.com/a/ACg8ocJx1f9Zn47TNUahWBaR8rkR7pADZWeywvHs7ClUYoe62g5a5g=s96-c",
+    verified_email: true,
+  };
+
   function navigateToHome() {
     navigation.navigate("Loading");
   }
