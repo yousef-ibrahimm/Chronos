@@ -20,7 +20,6 @@ const LoadingScreen = ({ navigation }) => {
       try {
         const email = studentCtxt.googleInfo.email;
 
-        // Validate email domain
         if (studentCtxt.googleInfo.hd !== "myport.ac.uk") {
           setErrorMessage(
             "Invalid email. Please use an @myport.ac.uk email address."
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    marginBottom: 24, // Adds spacing below the logo
+    marginBottom: 24,
   },
   loadingText: {
     fontSize: 20,

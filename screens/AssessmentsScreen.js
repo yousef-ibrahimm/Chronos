@@ -109,16 +109,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "600",
-    color: "#222", // Darker title color for emphasis
+    color: "#222",
     marginBottom: 16,
   },
   assessmentContainer: {
-    backgroundColor: Colors.containerBackgroundColour, // White card-like background
+    backgroundColor: Colors.containerBackgroundColour,
     padding: 16,
     marginVertical: 8,
-    borderRadius: 12, // Rounded corners for a modern look
-    elevation: 3, // Subtle shadow for Android
-    shadowColor: "#000", // Shadow for iOS
+    borderRadius: 12,
+    elevation: 3,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 8, // Adds spacing below the header
+    marginBottom: 8,
   },
   moduleTitle: {
     fontSize: 18,
@@ -137,18 +137,18 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 16,
-    color: Colors.primary, // Use a primary color for the button
+    color: Colors.primary,
     fontWeight: "bold",
   },
   innerTxt: {
     fontSize: 16,
-    color: "#444", // Neutral text color
+    color: "#444",
     marginBottom: 8,
-    lineHeight: 22, // Better readability
+    lineHeight: 22,
   },
   bold: {
-    fontWeight: "700", // Stronger emphasis for labels
-    color: Colors.textColourDark, // Black for bold text
+    fontWeight: "700",
+    color: Colors.textColourDark,
   },
 });
 

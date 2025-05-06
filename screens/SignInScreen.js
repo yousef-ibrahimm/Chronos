@@ -25,20 +25,18 @@ const SignInScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (Platform.OS === "ios" || Platform.OS === "android") {
-      // Set mock data and navigate to loading screen
-      studentCtxt.setGoogleInfo(mockGoogleInfo);
+      studentCtxt.googleInfo = mockGoogleInfo;
       navigateToHome();
     } else if (
       studentCtxt.googleInfo &&
       Object.keys(studentCtxt.googleInfo).length > 0
     ) {
-      console.log("SignInScreen", studentCtxt.googleInfo);
       navigateToHome();
     }
   }, [studentCtxt.googleInfo]);
 
   if (Platform.OS === "ios" || Platform.OS === "android") {
-    // Skip rendering GoogleSignIn for mobile devices
+    // Skip rendering GoogleSignIn for mobile devices as not yet supported
     return null;
   }
 
