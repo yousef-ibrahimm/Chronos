@@ -30,3 +30,8 @@ Chronos is a React Native application designed to help students manage their aca
 - Mobile has to be on the same network as the computer
 - For iOS QR is scanned by the camera
 - For Android QR is scanned in the Expo app
+
+## Note
+
+- Currently Web Version uses google authentication for sign in, and will only allow @myport.ac.uk emails to sign in for security
+- In order to use/test the application without a @myport.ac.uk email, the mobile version provides a Mock Google sign in, and the application can be used without signing in
